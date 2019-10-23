@@ -1,29 +1,40 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+    <div id="app">
+        <b-navbar toggleable="sm" type="light" variant="light" v-if="IsUnlocked">
+            <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
+
+            <b-navbar-brand>My Secure Store</b-navbar-brand>
+
+            <b-collapse id="nav-text-collapse" is-nav>
+                <b-navbar-nav>
+                    <b-nav-text>Save it, Store it, Protect it</b-nav-text>
+                </b-navbar-nav>
+            </b-collapse>
+        </b-navbar>
+
+        <router-view></router-view>
+    </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+    import {Component, Vue} from "vue-property-decorator";
+    import AppLogin from "./components/HelloWorld.vue";
 
-@Component({
-  components: {
-    HelloWorld,
-  },
-})
-export default class App extends Vue {}
+    @Component({
+        components: {
+
+        },
+    })
+    export default class App extends Vue {
+        get IsUnlocked(){
+            return !this.$store.state.IsLocked
+        }
+    }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    #app {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 </style>
