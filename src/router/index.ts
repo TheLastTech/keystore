@@ -1,27 +1,42 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import VueRouter, {Route} from 'vue-router';
 import Home from '../views/Home.vue';
+import store from '@/store';
 
 Vue.use(VueRouter);
 
+const Routes = {
+    Home: '/',
+    Keys: '/keys',
+
+};
+
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home,
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Welcome.vue'),
-  },
+    {
+        path: Routes.Home,
+        name: 'home',
+        component: Home,
+    },
+    {
+        path: Routes.Keys,
+        name: 'keys',
+
+        component: () => import(/* webpackChunkName: "Welcome" */ '@/views/Keys.vue'),
+        beforeEnter: requiresAuth,
+
+    },
 ];
 
+function requiresAuth(to: Route, from: Route, next: (to?: string) => void) {
+    if (store.state.IsLocked) {
+        next(`${Routes.Home}?redirect=${encodeURIComponent(to.path)}`);
+        return;
+    }
+    next();
+}
+
 const router = new VueRouter({
-  routes,
+    routes,
 });
 
 export default router;

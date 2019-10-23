@@ -5,7 +5,8 @@
 
             <b-form-group label="Enter Your Pin">
 
-                <input name="bztyy" class="form-control form-control-lg" v-model="Pin" maxlength="4" size="4" placeholder="PIN"
+                <input name="bztyy" class="form-control form-control-lg" v-model="Pin" maxlength="4" size="4"
+                       placeholder="PIN"
                        type="password">
             </b-form-group>
             <b-form-group>
@@ -18,19 +19,20 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from "vue-property-decorator";
+import {Component, Prop, Vue} from 'vue-property-decorator';
 
 
-    @Component
-    export default class AppLogin extends Vue {
-        Pin = "";
+@Component
+export default class AppLogin extends Vue {
+    public Pin = '';
 
-        async Unlock() {
-           await this.$store.dispatch("UnlockApp", this.Pin);
-           if(!this.$store.state.IsLocked){
-               this.$router.push('/Welcome');
-           }
+    public async Unlock() {
+        await this.$store.dispatch('UnlockApp', this.Pin);
+
+        if (!this.$store.state.IsLocked) {
+            this.$router.push({path: 'keys'});
         }
     }
+}
 </script>
 
