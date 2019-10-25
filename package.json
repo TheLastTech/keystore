@@ -2,15 +2,28 @@
   "name": "secureapp",
   "version": "0.1.0",
   "private": true,
+  "main": "runeforge.js",
   "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@types/node": "^12.11.7",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.4",
     "core-js": "^3.3.2",
+    "data-uri-to-file": "^0.1.8",
+    "electron": "7.0.0",
+    "electron-is-dev": "^1.1.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^5.0.0",
+    "file-saver": "latest",
+    "jszip": "^3.2.2",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
@@ -19,15 +32,55 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@electron-forge/cli": "6.0.0-beta.45",
+    "@electron-forge/maker-deb": "6.0.0-beta.45",
+    "@electron-forge/maker-rpm": "6.0.0-beta.45",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.45",
+    "@electron-forge/maker-zip": "6.0.0-beta.45",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-pwa": "^4.0.0",
     "@vue/cli-plugin-typescript": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
+    "electron": "7.0.0",
     "lint-staged": "^9.4.2",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.0",
     "typescript": "~3.5.3",
     "vue-template-compiler": "^2.6.10"
+  },
+  "author": {
+    "name": "thelasttech",
+    "email": "3Z5IMPaEIoHg"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+
+        "ignore": [".idea", ".gitignore"]
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "eforge"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

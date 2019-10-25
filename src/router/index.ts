@@ -2,12 +2,15 @@ import Vue from 'vue';
 import VueRouter, {Route} from 'vue-router';
 import Home from '../views/Home.vue';
 import store from '@/store';
+import AddKey from '@/components/AddKey.vue';
+import Keys from '@/views/Keys.vue';
 
 Vue.use(VueRouter);
 
-const Routes = {
+export const Routes = {
     Home: '/',
     Keys: '/keys',
+    AddKey: '/addkey',
 
 };
 
@@ -21,7 +24,14 @@ const routes = [
         path: Routes.Keys,
         name: 'keys',
 
-        component: () => import(/* webpackChunkName: "Welcome" */ '@/views/Keys.vue'),
+        component: Keys,
+        beforeEnter: requiresAuth,
+
+    },
+    {
+        path: Routes.AddKey,
+        name: 'addkeys',
+        component: AddKey,
         beforeEnter: requiresAuth,
 
     },
